@@ -24,16 +24,16 @@
         <div class="input-group">
             <label for="plastics">Plastics (Kg)</label>
             <span class="color-indicator plastics-indicator"></span>
-            <input type="number" id="plastics" value="0" onchange="calculateSum()">
+            <input type="number" id="plastics" value="0" onchange="calculateSum()" disabled>
         </div>
 
         <div class="input-group">
             <label for="fibres">Fibres (Kg)</label>
             <span class="color-indicator fibres-indicator"></span>
-            <input type="number" id="fibres" value="0" onchange="calculateSum()">
+            <input type="number" id="fibres" value="0" onchange="calculateSum()" disabled>
         </div>
 
-                <div class="input-group">
+        <div class="input-group">
             <label for="sum">Sum (Kg)</label>
             <input type="text" id="sum" value="0" readonly>
         </div>
@@ -45,8 +45,8 @@
         </div>
 
         <div class="buttons">
-            <button class="stop">Stop</button>
-            <button class="start">Start</button>
+            <button class="stop" onclick="stopDataEntry()">Stop</button>
+            <button class="start" onclick="startDataEntry()">Start</button>
         </div>
     </div>
 
@@ -73,6 +73,25 @@
 
             document.getElementById('plastics-bar').innerText = plasticsPercentage.toFixed(2) + '%';
             document.getElementById('fibres-bar').innerText = fibresPercentage.toFixed(2) + '%';
+        }
+
+        // Function to start data entry (enable input fields)
+        function startDataEntry() {
+            document.getElementById('plastics').disabled = false;
+            document.getElementById('fibres').disabled = false;
+        }
+
+        // Function to stop data entry (clear input fields and disable them)
+        function stopDataEntry() {
+            document.getElementById('plastics').disabled = true;
+            document.getElementById('fibres').disabled = true;
+            document.getElementById('plastics').value = 0;
+            document.getElementById('fibres').value = 0;
+            document.getElementById('sum').value = 0;
+            document.getElementById('plastics-bar').style.width = '0%';
+            document.getElementById('fibres-bar').style.width = '0%';
+            document.getElementById('plastics-bar').innerText = '0%';
+            document.getElementById('fibres-bar').innerText = '0%';
         }
     </script>
 </body>
