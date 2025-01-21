@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unload Waste Station Interface</title>
+    <!-- Link to the CSS file -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="images/logo.jpeg" alt="RECOMA Logo" class="logo">
+            <div>RECOMA</div>
+            <div>Unload waste station interface</div>
+        </div>
+        
+        <div class="instruction">
+          <label for="Instruction">Instruction</label>
+          <div class="dotted-box">Load 150 Kg of plastics</div>
+      </div>
+      <div class="dotted-line"></div> <!-- Add this line for the dotted line -->
+
+        <div class="input-group">
+            <label for="plastics">Plastics (Kg)</label>
+            <span class="color-indicator plastics-indicator"></span>
+            <input type="number" id="plastics" value="0" onchange="calculateSum()">
+        </div>
+
+        <div class="input-group">
+            <label for="fibres">Fibres (Kg)</label>
+            <span class="color-indicator fibres-indicator"></span>
+            <input type="number" id="fibres" value="0" onchange="calculateSum()">
+        </div>
+
+                <div class="input-group">
+            <label for="sum">Sum (Kg)</label>
+            <input type="text" id="sum" value="0" readonly>
+        </div>
+
+        <div id="recipe-tracker">
+            <div class="blue" id="plastics-bar">0%</div>
+            <div class="brown" id="fibres-bar">0%</div>
+            <div class="receipetracker">Receipetracker</div>
+        </div>
+
+        <div class="buttons">
+            <button class="stop">Stop</button>
+            <button class="start">Start</button>
+        </div>
+    </div>
+
+    <script>
+        // Function to calculate the sum of plastics and fibres and adjust the percentage bars
+        function calculateSum() {
+            // Get the values from the input fields
+            var plastics = parseFloat(document.getElementById('plastics').value);
+            var fibres = parseFloat(document.getElementById('fibres').value);
+
+            // Calculate the sum
+            var sum = plastics + fibres;
+
+            // Update the sum field with the calculated value
+            document.getElementById('sum').value = sum.toFixed(2);
+
+            // Calculate the percentages
+            var plasticsPercentage = (plastics / sum) * 100;
+            var fibresPercentage = (fibres / sum) * 100;
+
+            // Update the percentage bar widths and text
+            document.getElementById('plastics-bar').style.width = plasticsPercentage + '%';
+            document.getElementById('fibres-bar').style.width = fibresPercentage + '%';
+
+            document.getElementById('plastics-bar').innerText = plasticsPercentage.toFixed(2) + '%';
+            document.getElementById('fibres-bar').innerText = fibresPercentage.toFixed(2) + '%';
+        }
+    </script>
+</body>
+</html>
