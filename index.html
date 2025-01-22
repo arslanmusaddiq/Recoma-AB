@@ -1,98 +1,314 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unload Waste Station Interface</title>
-    <!-- Link to the CSS file -->
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <div class="container">
-        <div class="header">
-            <img src="images/logo.jpeg" alt="RECOMA Logo" class="logo">
-            <div>RECOMA</div>
-            <div>Unload waste station interface</div>
-        </div>
-        
-        <div class="instruction">
-          <label for="Instruction">Instruction</label>
-          <div class="dotted-box">Load 150 Kg of plastics</div>
-      </div>
-      <div class="dotted-line"></div> <!-- Add this line for the dotted line -->
 
-        <div class="input-group">
-            <label for="plastics">Plastics (Kg)</label>
-            <span class="color-indicator plastics-indicator"></span>
-            <input type="number" id="plastics" value="0" onchange="calculateSum()" disabled>
-        </div>
 
-        <div class="input-group">
-            <label for="fibres">Fibres (Kg)</label>
-            <span class="color-indicator fibres-indicator"></span>
-            <input type="number" id="fibres" value="0" onchange="calculateSum()" disabled>
-        </div>
+/* Basic reset for styling */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-        <div class="input-group">
-            <label for="sum">Sum (Kg)</label>
-            <input type="text" id="sum" value="0" readonly>
-        </div>
+/* Container styles */
+.container-1 {
+  font-family: Arial, sans-serif;
+  width: 550px;  /* Increased width for more space */
+  margin: 0 auto;
+  padding: 10px;
+  border: 2px solid rgb(0, 0, 0);  /* Keep the original black border */
+  background-color: #f9f9f9;
+  box-shadow: 2px 2px 10px #ccc;  /* Slight shadow for depth */
+  border-radius: 15px;  /* Rounded corners for a smoother look */
+}
 
-        <div id="recipe-tracker">
-            <div class="blue" id="plastics-bar">0%</div>
-            <div class="brown" id="fibres-bar">0%</div>
-            <div class="receipetracker">Receipetracker</div>
-        </div>
+/* Header styles */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #333;
+  color: white;
+  padding: 10px;
+  font-size: 18px;
+}
 
-        <div class="buttons">
-            <button class="stop" onclick="stopDataEntry()">Stop</button>
-            <button class="start" onclick="startDataEntry()">Start</button>
-        </div>
-    </div>
+.header div:first-child {
+  font-size: 24px;
+  padding-right: 20px;  /* Added space between the two sections */
+}
 
-    <script>
-        // Function to calculate the sum of plastics and fibres and adjust the percentage bars
-        function calculateSum() {
-            // Get the values from the input fields
-            var plastics = parseFloat(document.getElementById('plastics').value);
-            var fibres = parseFloat(document.getElementById('fibres').value);
+.header div:last-child {
+  font-size: 20px;
+}
 
-            // Calculate the sum
-            var sum = plastics + fibres;
+/* Instruction text styles */
+.instruction {
+  font-size: 22px;
+  font-weight: bold;
+  width: 1000px;
+  padding: 1px 1;
+  margin-bottom: 10px;
+}
 
-            // Update the sum field with the calculated value
-            document.getElementById('sum').value = sum.toFixed(2);
+/* Input group styles */
+.input-group {
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+}
 
-            // Calculate the percentages
-            var plasticsPercentage = (plastics / sum) * 100;
-            var fibresPercentage = (fibres / sum) * 100;
+.input-group label {
+  font-size: 18px;
+  margin-right: -20px;
+  width: 120px;
+}
 
-            // Update the percentage bar widths and text
-            document.getElementById('plastics-bar').style.width = plasticsPercentage + '%';
-            document.getElementById('fibres-bar').style.width = fibresPercentage + '%';
+.input-group input {
+  padding: 5px;
+  font-size: 16px;
+  width: 300px;
+  border: 2px solid #ccc;
+  margin-left: auto;
+  border-radius: 5px;
+}
 
-            document.getElementById('plastics-bar').innerText = plasticsPercentage.toFixed(2) + '%';
-            document.getElementById('fibres-bar').innerText = fibresPercentage.toFixed(2) + '%';
-        }
+/* Color indicator for Plastics and Fibres */
+.color-indicator {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-left: 20px;
+  margin-right: 10px;
+  vertical-align: middle;
+}
 
-        // Function to start data entry (enable input fields)
-        function startDataEntry() {
-            document.getElementById('plastics').disabled = false;
-            document.getElementById('fibres').disabled = false;
-        }
+/* Matching the bar colors */
+.plastics-indicator {
+  background-color: #69B4E0;  /* Blue from the recipe tracker */
+}
 
-        // Function to stop data entry (clear input fields and disable them)
-        function stopDataEntry() {
-            document.getElementById('plastics').disabled = true;
-            document.getElementById('fibres').disabled = true;
-            document.getElementById('plastics').value = 0;
-            document.getElementById('fibres').value = 0;
-            document.getElementById('sum').value = 0;
-            document.getElementById('plastics-bar').style.width = '0%';
-            document.getElementById('fibres-bar').style.width = '0%';
-            document.getElementById('plastics-bar').innerText = '0%';
-            document.getElementById('fibres-bar').innerText = '0%';
-        }
-    </script>
-</body>
-</html>
+.fibres-indicator {
+  background-color: #8B572A;  /* Brown from the recipe tracker */
+}
+
+/* Recipe tracker bar container */
+#recipe-tracker {
+  display: flex;
+  height: 30px;
+  margin-bottom: 20px;
+  width: 100%;
+  border: 1px solid black;  /* Black border around the bars */
+  background-color: white;  /* Initially white background */
+  border-radius: 4px;  /* Rounded corners */
+}
+
+/* Individual percentage bars */
+.blue, .brown {
+  background-color: white;  /* Initially white background */
+  width: 0;
+  text-align: center;
+  color: black;
+  line-height: 30px;
+}
+
+.blue {
+  background-color: #69B4E0;  /* Blue color for plastics */
+  border-right: 1px solid black;  /* Border between the bars */
+}
+
+.brown {
+  background-color: #8B572A;  /* Brown color for fibres */
+}
+
+/* Button styles */
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+button {
+  padding: 5px 20px;
+  font-size: 14px;
+  border: 2px solid black;
+  background-color: #0077b6;
+  color: white;
+  cursor: pointer;
+  border-radius: 30px;  /* Oval shape (not fully round) */
+  transition: background-color 0.3s ease;
+  width: 18%;  /* Added width to make the buttons closer to each other */
+}
+
+button.stop {
+  background-color: #e74c3c;
+}
+
+button.start {
+  background-color: #26854e;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+/* Dotted box styling */
+.dotted-box {
+  border: 1px dotted black;
+  padding: 13px;
+  text-align: left;
+  width: 40%;
+  font-weight: bold;
+  display: inline-block;
+  margin-top: 20px;
+  background-color: #f9f9f9; /* Optional background color */
+  border-radius: 5px;
+}
+
+#recipe-tracker {
+  position: relative;
+  margin-top: 20px;
+}
+
+#recipe-tracker::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 25%; /* Position the line at the 25% mark */
+  height: 150%;
+  width: 10px;
+  border-left: 2px dotted black; /* Dotted line */
+}
+
+#recipe-tracker .receipetracker {
+  position: absolute;
+  bottom: -20px; /* Adjust this to place the text right under the dotted line */
+  left: 34%; /* Center the text horizontally */
+  transform: translateX(-50%);
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.buttons {
+  display: flex;
+  justify-content: flex-end; /* Align buttons to the left */
+  gap: 10px; /* This will reduce the space between the buttons */
+}
+
+.header {
+  background-color: #333;
+  color: white;
+  padding: 8px;
+  font-size: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;  /* Ensure it stretches across the full container */
+  border-bottom: 2px solid black; /* Add border at the bottom to touch the box's border */
+  white-space: nowrap;  /* Prevent the text from wrapping */
+}
+
+.header div {
+  flex: 1;
+  text-align: center;
+}
+
+.logo {
+  width: 50px; /* Adjust the size of the logo */
+  height: auto; /* Maintain the aspect ratio */
+  margin-right: -80px; /* Space between the logo and text */
+}
+
+.instruction {
+  margin-bottom: 14px;
+}
+
+.dotted-box {
+  border: 1px solid #000;
+  padding: 10px;
+  display: inline-block;
+}
+
+.dotted-line {
+  border-top: 1px dotted black;
+  width: 100%;
+}
+
+.input-group {
+  margin-top: 15px; /* Adds vertical space between the dotted line and the plastics field */
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;  /* Align content to the left */
+  padding: 10px; /* Add some padding if needed */
+}
+
+.logo {
+  width: 50px; /* Adjust the size of the logo as needed */
+  height: auto;
+  margin-right: -40px; /* Space between logo and text */
+}
+
+.header div {
+  margin-left: -40px; /* Add some space between the "RECOMA" and "Unload waste station interface" */
+  font-size: 30px;
+}
+
+body {
+  background-image: url('images/recoma1.jpeg');  /* Use your custom image */
+  background-size: cover;  /* Ensures the image covers the whole page */
+  background-position: center;  /* Centers the image */
+  background-repeat: no-repeat;  /* Prevents the image from repeating */
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  height: 100vh;  /* Ensures the background covers the entire viewport height */
+}
+
+.pagination button {
+  padding: 5px 15px;  /* Reduced padding for smaller size */
+  font-size: 12px;     /* Smaller font size */
+  margin: 0 5px;       /* Reduced margin between buttons */
+  background-color: #3498db;
+  color: white;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  width: 100px;
+  transition: opacity 0.3s;
+}
+
+.pagination button:hover {
+  opacity: 0.8;
+}
+
+.container-2 {
+  margin-bottom: 10px;
+}
+
+.container-2 {
+  margin: 20px auto; /* Centers the container horizontally */
+  padding: 10px;
+  border: 1px solid #ccc;
+  background: #f9f9f9;
+  width: 60%; /* Adjust width as needed */
+}
+
+.data-table table {
+  width: 90%;
+  border-collapse: collapse;
+}
+
+.data-table th, .data-table td {
+  padding: 10px;
+  text-align: center;
+}
+
+.pagination {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.pagination button {
+  margin: 0 5px;
+  padding: 5px 10px;
+}
